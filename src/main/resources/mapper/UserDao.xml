@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.usts.dao.IUserDao">
+
+    <!-- 通常都不知道ID -->
+    <select id="selectUser" resultType="Users" parameterType="int">
+        SELECT * FROM users WHERE userid = #{userid}
+    </select>
+
+    <!-- 当用户名和密码一致时 -->
+    <select id="selectUserByInfo" resultType="Users" parameterType="Users">
+         SELECT * FROM users WHERE username = #{username} and userpw = #{userpw}
+    </select>
+
+    <!--<insert id="addUsers" parameterType="String">-->
+    <!--insert into users values(#{name},#{passwd},#{userType},"","")-->
+    <!--</insert>-->
+
+    <insert id="addUsers" parameterType="Users">
+        INSERT INTO users(username,userpw) values (#{username},#{userpw})
+    </insert>
+
+    <delete id="deleteUsers" parameterType="Users">
+
+    </delete>
+
+    <update id="updataUserPasswd" parameterType="Users">
+        update users SET
+          userpw = #{userpw}
+        WHERE userid = #{userid}
+    </update>
+</mapper>

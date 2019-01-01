@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IFoodsDao接口方法提供sql语句配置 -->
+<mapper namespace="com.usts.dao.DataDao">
+
+    <select id="selectData" resultType="DataObject" parameterType="int">
+        SELECT * FROM fyzw WHERE id = #{id}
+    </select>
+
+    <select id="selectDataBySingle" parameterType="String" resultType="DataObject">
+        SELECT * FROM fyzw
+        where
+          lb = #{sx} or
+            cydw = #{sx} or
+             riqi = #{sx} or
+              sxkey = #{sx} or
+                sxvalue = #{sx} and
+                 status = #{status}
+    </select>
+
+    <select id="selectDataByObject" parameterType="DataObject" resultType="DataObject">
+        SELECT * FROM fyzw
+        where status = #{status}
+          <if test="cydw != null">
+              and cydw = #{cydw}
+          </if>
+          <if test="riqi != null">
+              and riqi = #{riqi}
+          </if>
+          <if test="sxkey != null">
+              and sxkey = #{sxkey}
+          </if>
+          <if test="lb != null">
+              and lb = #{lb}
+          </if>
+
+    </select>
+
+    <insert id="updataData" parameterType="DataObject">
+        UPDATE fyzw SET
+          cyd_bh = #{cyd_bh},
+          cydw = #{cydw},
+          riqi = #{riqi},
+          sxkey = #{sxkey},
+          sxvalue = #{sxvalue},
+          lb = #{lb}
+        WHERE id = #{id}
+    </insert>
+
+    <insert id="addData" parameterType="DataObject">
+        insert into fyzw(cyd_bh,cydw,riqi,sxkey,sxvalue,lb,status)
+         values(#{cyd_bh},#{cydw},#{riqi},#{sxkey},#{sxvalue},#{lb},#{status});
+    </insert>
+
+    <update id="delData" parameterType="DataObject">
+        UPDATE fyzw SET
+          status = #{status}
+        WHERE id = #{id}
+    </update>
+</mapper>
