@@ -6,6 +6,7 @@ import com.usts.service.IUserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service()
 public class UserServiceImpl implements IUserService {
@@ -16,6 +17,11 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Users selectUser(int userId) {
         return this.userDao.selectUser(userId);
+    }
+
+    @Override
+    public List<Users> listUser() {
+        return this.userDao.listUser();
     }
 
     @Override
@@ -35,10 +41,11 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void deleteUsers(Users user) {
+        this.userDao.deleteUsers(user);
     }
 
     @Override
     public void updataUserPasswd(Users users) {
-
+        this.userDao.updataUserPasswd(users);
     }
 }

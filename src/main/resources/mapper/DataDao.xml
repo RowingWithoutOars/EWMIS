@@ -37,6 +37,11 @@
 
     </select>
 
+    <select id="selectDatafuzzy" parameterType="String" resultType="LBObject">
+        SELECT * FROM lb
+        where sxkey like #{sxkey}
+    </select>
+
     <insert id="updataData" parameterType="DataObject">
         UPDATE fyzw SET
           cyd_bh = #{cyd_bh},

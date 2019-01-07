@@ -1,6 +1,7 @@
 package com.usts.dao;
 
 import com.usts.model.DataObject;
+import com.usts.model.LBObject;
 
 import java.util.List;
 
@@ -10,6 +11,8 @@ public interface DataDao {
     public List<DataObject> selectDataBySingle(String sx);
 
     public List<DataObject> selectDataByObject(DataObject dataObject);
+
+    public List<LBObject> selectDatafuzzy(String lbkey);
 
     public void addData(DataObject dataObject);
 

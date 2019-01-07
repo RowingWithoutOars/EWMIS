@@ -1,6 +1,7 @@
 package com.usts.controller;
 
 import com.usts.model.DataObject;
+import com.usts.model.LBObject;
 import com.usts.service.IDataService;
 import com.usts.tools.MapConvertObject;
 import com.usts.tools.SqlToMap;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +60,7 @@ public class DataController {
         DataObject dataObject = MapConvertObject.mapConvertDataObject(map);
         List<DataObject> dataObjects = iDataService.selectDataByObject(dataObject);
         returnMap = SqlToMap.convertMap(dataObjects);
+
         return  returnMap;
 
     }
@@ -90,4 +94,39 @@ public class DataController {
 
         return  returnMap;
     }
+
+    @RequestMapping(value = "/statisticData", produces = "application/json; charset=utf-8")
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @ResponseBody
+    public Map statisticData(){
+        // 获取类别
+        Map map = new HashMap();
+        map.put("sxkey","浮游植物");
+        HashMap<String,Integer> paraMap = new HashMap();
+        for (Object key : map.keySet()) {
+            paraMap.put(map.get(key).toString(),-1);
+        }
+        List<LBObject> res = new ArrayList();
+        for (String p:paraMap.keySet()){
+            res = this.iDataService.selectDatafuzzy("%"+p+"%");
+            if (res.size()==1){
+                paraMap.put(res.get(0).getSxkey(),res.get(0).getSxvalue());
+            }else if(res.size() >= 1){
+                for (LBObject lbObject:res){
+                    paraMap.put(lbObject.getSxkey(),lbObject.getSxvalue());
+                }
+            }
+            paraMap.remove(p);
+        }
+        Map returnMap = new HashMap();
+        // 将所有统计属性放在同一个map
+        for (String p: paraMap.keySet()){
+            DataObject d = new DataObject();
+            d.setLb(paraMap.get(p));
+            List l = this.iDataService.selectDataByObject(d);
+            returnMap.put(p,l);
+        }
+        return returnMap;
+    }
+
 }

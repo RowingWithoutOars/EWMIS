@@ -1,6 +1,7 @@
 package com.usts.service;
 
 import com.usts.model.DataObject;
+import com.usts.model.LBObject;
 
 import java.util.List;
 
@@ -15,6 +16,9 @@ public interface IDataService {
     // 根据多个属性值查找对应的结果
     public List<DataObject> selectDataByObject(DataObject dataObject);
 
+    // 根据字符查类别
+    public List<LBObject> selectDatafuzzy(String lbkey);
+
     // 增加一行属性，每次增加一个
     public void addData(DataObject dataObject);
 
@@ -23,5 +27,7 @@ public interface IDataService {
 
     // 删除数据，就是把回溯标志位改成0
     public void delData(int id);
+
+
 
 }

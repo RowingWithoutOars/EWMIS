@@ -6,7 +6,12 @@
 
     <!-- 通常都不知道ID -->
     <select id="selectUser" resultType="Users" parameterType="int">
-        SELECT * FROM users WHERE userid = #{userid}
+        SELECT * FROM users
+        WHERE userid = #{userid}
+    </select>
+
+    <select id="listUser" resultType="Users">
+        SELECT * FROM users
     </select>
 
     <!-- 当用户名和密码一致时 -->
@@ -19,16 +24,23 @@
     <!--</insert>-->
 
     <insert id="addUsers" parameterType="Users">
-        INSERT INTO users(username,userpw) values (#{username},#{userpw})
+        INSERT INTO users(username,userpw,lb) values (#{username},#{userpw},#{lb})
     </insert>
 
     <delete id="deleteUsers" parameterType="Users">
-
+        DELETE from users where userid = #{userid}
     </delete>
 
     <update id="updataUserPasswd" parameterType="Users">
-        update users SET
+        update users
+        <set>
+        <if test="lb != null">
+          lb = #{lb},
+        </if>
+        <if test="userpw != null">
           userpw = #{userpw}
+        </if>
+        </set>
         WHERE userid = #{userid}
     </update>
 </mapper>

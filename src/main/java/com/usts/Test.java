@@ -3,6 +3,7 @@ package com.usts;
 import com.usts.dao.DataDao;
 import com.usts.dao.IUserDao;
 import com.usts.model.DataObject;
+import com.usts.model.LBObject;
 import com.usts.model.Users;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,15 +44,23 @@ public class Test {
     private IUserDao userDao;
     @org.junit.Test
     public void testUserFun(){
-        int i = 12;
-        Users users = userDao.selectUser(i);
-        System.out.println(users);
-        users.setUserpw("222222");
-        this.userDao.updataUserPasswd(users);
-        users.setUsername("Test13");
-        users.setUserpw("333333");
-        this.userDao.addUsers(users);
-        Users user2 = this.userDao.selectUserByInfo(users);
-        System.out.println(user2);
+//        List<Users> users = userDao.listUser();
+//        for(Users user:users){
+//            System.out.println(user);
+//        }
+        Users users1 = new Users();
+        users1.setUserid(13);
+//        users1.setLb("40");
+        users1.setUserpw("222222222");
+        this.userDao.updataUserPasswd(users1);
+    }
+
+    @org.junit.Test
+    public void staticsData(){
+        String s = "%浮游植物%";
+        List<LBObject> list = dataDao.selectDatafuzzy(s);
+        for(LBObject l:list){
+            System.out.println(l.toString());
+        }
     }
 }

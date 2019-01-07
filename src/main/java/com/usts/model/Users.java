@@ -4,6 +4,7 @@ public class Users {
     private int userid;
     private String username;
     private String userpw;
+    private String lb;
 
     public Users() {
     }
@@ -17,8 +18,8 @@ public class Users {
         this.userpw = userpw;
     }
 
-    public Users(int userid, String username, String userpw) {
-        this.userid = userid;
+    public Users(String username, String userpw,String lb) {
+        this.lb = lb;
         this.username = username;
         this.userpw = userpw;
     }
@@ -47,12 +48,21 @@ public class Users {
         this.userpw = userpw;
     }
 
+    public String getLb() {
+        return lb;
+    }
+
+    public void setLb(String lb) {
+        this.lb = lb;
+    }
+
     @Override
     public String toString() {
-        return "==================================Users{" +
+        return "Users{" +
                 "userid=" + userid +
                 ", username='" + username + '\'' +
                 ", userpw='" + userpw + '\'' +
+                ", lb='" + lb + '\'' +
                 '}';
     }
 }

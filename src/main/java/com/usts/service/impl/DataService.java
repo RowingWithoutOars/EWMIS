@@ -2,6 +2,7 @@ package com.usts.service.impl;
 
 import com.usts.dao.DataDao;
 import com.usts.model.DataObject;
+import com.usts.model.LBObject;
 import com.usts.service.IDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,11 @@ public class DataService implements IDataService {
     @Override
     public List<DataObject> selectDataByObject(DataObject dataObject) {
         return this.dataDao.selectDataByObject(dataObject);
+    }
+
+    @Override
+    public List<LBObject> selectDatafuzzy(String lbkey) {
+        return this.dataDao.selectDatafuzzy(lbkey);
     }
 
     @Override
