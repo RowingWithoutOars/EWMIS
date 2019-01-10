@@ -24,7 +24,8 @@
     <!--</insert>-->
 
     <insert id="addUsers" parameterType="Users">
-        INSERT INTO users(username,userpw,lb) values (#{username},#{userpw},#{lb})
+        INSERT INTO users(username,userpw,fydw,fyzw,dq,wsw,dn,other)
+        values (#{username},#{userpw},#{fydw},#{fyzw},#{dq},#{wsw},#{dn},#{other})
     </insert>
 
     <delete id="deleteUsers" parameterType="Users">
@@ -34,8 +35,23 @@
     <update id="updataUserPasswd" parameterType="Users">
         update users
         <set>
-        <if test="lb != null">
-          lb = #{lb},
+        <if test="fydw != null">
+            fydw = #{fydw},
+        </if>
+        <if test="fyzw != null">
+            fyzw = #{fyzw},
+        </if>
+        <if test="dq != null">
+            dq = #{dq},
+        </if>
+        <if test="wsw != null">
+            wsw = #{wsw},
+        </if>
+        <if test="dn != null">
+            dn = #{dn},
+        </if>
+        <if test="other != null">
+            other = #{other},
         </if>
         <if test="userpw != null">
           userpw = #{userpw}

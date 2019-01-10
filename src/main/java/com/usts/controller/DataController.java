@@ -1,10 +1,13 @@
 package com.usts.controller;
 
+import com.usts.dao.IUserDao;
 import com.usts.model.DataObject;
-import com.usts.model.LBObject;
+import com.usts.model.Users;
 import com.usts.service.IDataService;
+import com.usts.service.IUserService;
 import com.usts.tools.MapConvertObject;
 import com.usts.tools.SqlToMap;
+import com.usts.tools.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,17 +15,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/data")
 public class DataController {
 
+
+
     @Autowired
     private IDataService iDataService;
+
+    @Autowired
+    private IUserService iUserService;
 
     //根据id查找对应的一条数据
     @RequestMapping(value = "/listData", produces = "application/json; charset=utf-8")
@@ -41,14 +46,22 @@ public class DataController {
     @ResponseBody
     public Map listSingleData(@RequestBody Map map) {
         Map<String, Object> returnMap = new HashMap<>();
-        if (map!=null) {
-            // 遍历Map中的属性值
-            String sx = map.get("sxkey").toString();
-            List<DataObject> dataObject = iDataService.selectDataBySingle(sx);
-            returnMap = SqlToMap.convertMap(dataObject);
+        if(map.get("userid")!=null&&map.get("sxkey")!=null) {// 判断是否为正常值
+            int userid = Integer.parseInt(map.get("userid").toString());
+            System.out.println("=====================userid:"+userid);
+            Users users = iUserService.selectUser(userid);
+            System.out.println("===========sxkey:"+map.get("sxkey"));
+            System.out.println("===========getAuth():"+users.getAuth());
+            if (users.getAuth().contains(Integer.parseInt(map.get("sxkey").toString()))){
+                if (map != null) {
+                    // 遍历Map中的属性值
+                    String sx = map.get("sxkey").toString();
+                    List<DataObject> dataObject = iDataService.selectDataBySingle(sx);
+                    returnMap = SqlToMap.convertMap(dataObject);
+                }
+            }
         }
-        return  returnMap;
-
+        return returnMap;
     }
 
     // 根据多个属性查找所有的数据
@@ -99,33 +112,23 @@ public class DataController {
     @CrossOrigin(origins = "*", maxAge = 3600)
     @ResponseBody
     public Map statisticData(){
-        // 获取类别
-        Map map = new HashMap();
-        map.put("sxkey","浮游植物");
-        HashMap<String,Integer> paraMap = new HashMap();
-        for (Object key : map.keySet()) {
-            paraMap.put(map.get(key).toString(),-1);
-        }
-        List<LBObject> res = new ArrayList();
-        for (String p:paraMap.keySet()){
-            res = this.iDataService.selectDatafuzzy("%"+p+"%");
-            if (res.size()==1){
-                paraMap.put(res.get(0).getSxkey(),res.get(0).getSxvalue());
-            }else if(res.size() >= 1){
-                for (LBObject lbObject:res){
-                    paraMap.put(lbObject.getSxkey(),lbObject.getSxvalue());
-                }
-            }
-            paraMap.remove(p);
-        }
         Map returnMap = new HashMap();
-        // 将所有统计属性放在同一个map
-        for (String p: paraMap.keySet()){
-            DataObject d = new DataObject();
-            d.setLb(paraMap.get(p));
-            List l = this.iDataService.selectDataByObject(d);
-            returnMap.put(p,l);
+        ArrayList tlist = new ArrayList();
+        tlist.add("2018.03");
+        tlist.add("2018.06");
+        returnMap.put("time",tlist);
+        ArrayList sxvalue = new ArrayList();
+        sxvalue.add("123");
+        sxvalue.add("188");
+        returnMap.put("sxvalue",sxvalue);
+        returnMap.put("jcdw","TH1");
+        returnMap.put("sx","硅藻门");
+        List jcd = new ArrayList();
+        String[] jc = {"TH1","TH2","TH3","TH4","TH5"};
+        for (String s:jc){
+            jcd.add(new Tuple(s));
         }
+        returnMap.put("jcd",jcd);
         return returnMap;
     }
 

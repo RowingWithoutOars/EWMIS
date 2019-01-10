@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.xml.registry.infomodel.User;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -44,15 +45,12 @@ public class Test {
     private IUserDao userDao;
     @org.junit.Test
     public void testUserFun(){
-//        List<Users> users = userDao.listUser();
-//        for(Users user:users){
-//            System.out.println(user);
-//        }
-        Users users1 = new Users();
-        users1.setUserid(13);
-//        users1.setLb("40");
-        users1.setUserpw("222222222");
-        this.userDao.updataUserPasswd(users1);
+//        Users users = new Users("Test1","Test2");
+//        users = this.userDao.selectUserByInfo(users);
+//        System.out.println(users.toString());
+//        Users users1 = this.userDao.selectUser(17);
+//        System.out.println(users1.toString());
+//        System.out.println(users1.getAuth().size());
     }
 
     @org.junit.Test

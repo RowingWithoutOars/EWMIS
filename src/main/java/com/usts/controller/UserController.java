@@ -26,25 +26,20 @@ public class UserController {
     private IUserService userService;
 
     // 登录接口
-    @RequestMapping(value = "/login.do", produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/login", produces = "application/json; charset=utf-8")
     @CrossOrigin(origins = "*", maxAge = 3600)
     @ResponseBody
-    public Object login(@RequestBody Map map) {
+    public Map login(@RequestBody Map map) {
         String userName = map.get("username").toString();
-        String passWord = map.get("userpw").toString();
+        String passWord = map.get("password").toString();
         Users user = new Users(userName,passWord);
-                this.userService.selectUserByInfo(user);
-        JSONObject jsonObject = new JSONObject();
-        if (user != null && user.getUserpw().equals(passWord)){
-            jsonObject.put("code",200);
-            user.setUserpw("");
-            jsonObject.put("user",user);
-            return jsonObject;
+        user = this.userService.selectUserByInfo(user);
+        Map reMap = new HashMap();
+        if (user!=null){
+            reMap.put("code",200);
+            reMap.put("userid",user.getUserid());
         }
-        else{
-            System.out.println("login faile");
-            return jsonObject;
-        }
+        return reMap;
     }
 
     // 列出所有用户信息

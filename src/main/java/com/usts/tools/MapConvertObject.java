@@ -28,8 +28,23 @@ public class MapConvertObject {
         if (map.get("userpw")!=null){
             users.setUserpw(map.get("userpw").toString());
         }
-        if (map.get("lb")!=null){
-            users.setLb(map.get("lb").toString());
+        if (map.get("fydw")!=null){
+            users.setFydw(Integer.parseInt(map.get("fydw").toString()));
+        }
+        if (map.get("fyzw")!=null){
+            users.setFyzw(Integer.parseInt(map.get("fyzw").toString()));
+        }
+        if (map.get("dq")!=null){
+            users.setDq(Integer.parseInt(map.get("").toString()));
+        }
+        if (map.get("wsw")!=null){
+            users.setWsw(Integer.parseInt(map.get("wsw").toString()));
+        }
+        if (map.get("dn")!=null){
+            users.setDn(Integer.parseInt(map.get("").toString()));
+        }
+        if (map.get("other")!=null){
+            users.setOther(Integer.parseInt(map.get("").toString()));
         }
         return users;
     }
