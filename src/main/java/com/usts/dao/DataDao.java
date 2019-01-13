@@ -12,11 +12,15 @@ public interface DataDao {
 
     public List<DataObject> selectDataByObject(DataObject dataObject);
 
+    public List<DataObject> selectDataByLb(int lb);
+
     public List<LBObject> selectDatafuzzy(String lbkey);
 
     public void addData(DataObject dataObject);
 
     public void updataData(DataObject dataObject);
 
-    public void delData(int id);
+    public void delData(String cyd_bh,String riqi,String sxkey);
+
+//    public void delData(int id);
 }

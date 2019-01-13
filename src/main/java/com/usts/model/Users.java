@@ -148,6 +148,9 @@ public class Users {
         if (getWsw()>0){
             auth.addAll(Auth.getAuth().get("wsw"));
         }
+        if (getOther()>0){
+            auth.addAll(Auth.getAuth().get("other"));
+        }
         removeDuplicate();
     }
 

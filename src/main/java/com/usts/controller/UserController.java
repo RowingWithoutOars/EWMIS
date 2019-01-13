@@ -32,8 +32,10 @@ public class UserController {
     public Map login(@RequestBody Map map) {
         String userName = map.get("username").toString();
         String passWord = map.get("password").toString();
+//        System.out.println(userName+";"+passWord);
         Users user = new Users(userName,passWord);
         user = this.userService.selectUserByInfo(user);
+//        System.out.println(user);
         Map reMap = new HashMap();
         if (user!=null){
             reMap.put("code",200);

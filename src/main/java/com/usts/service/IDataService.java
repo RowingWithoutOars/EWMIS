@@ -13,6 +13,9 @@ public interface IDataService {
     // 根据属性查找属性，直接放入cyd_bh,cydw,riqi,key都是可以的
     public List<DataObject> selectDataBySingle(String sx);
 
+    // 根据属性查找属性，直接放入cyd_bh,cydw,riqi,key都是可以的
+    public List<DataObject> selectDataByLb(int lb);
+
     // 根据多个属性值查找对应的结果
     public List<DataObject> selectDataByObject(DataObject dataObject);
 
@@ -26,8 +29,7 @@ public interface IDataService {
     public void updataData(DataObject dataObject);
 
     // 删除数据，就是把回溯标志位改成0
-    public void delData(int id);
-
-
+    public void delData(String cyd_bh,String riqi,String sxkey);
+//    public void delData(int id);
 
 }

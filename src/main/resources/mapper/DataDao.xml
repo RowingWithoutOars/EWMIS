@@ -37,30 +37,31 @@
 
     </select>
 
+    <select id="selectDataByLb" parameterType="Integer" resultType="DataObject">
+        SELECT * FROM fyzw
+        where lb like #{lb}
+    </select>
+
     <select id="selectDatafuzzy" parameterType="String" resultType="LBObject">
         SELECT * FROM lb
         where sxkey like #{sxkey}
     </select>
 
-    <insert id="updataData" parameterType="DataObject">
+    <update id="updataData" parameterType="DataObject">
         UPDATE fyzw SET
-          cyd_bh = #{cyd_bh},
-          cydw = #{cydw},
-          riqi = #{riqi},
-          sxkey = #{sxkey},
           sxvalue = #{sxvalue},
-          lb = #{lb}
-        WHERE id = #{id}
-    </insert>
+        WHERE cyd_bh = #{cyd_bh} and
+                cydw = #{cydw} and sxkey = #{sxkey}
+    </update>
 
     <insert id="addData" parameterType="DataObject">
         insert into fyzw(cyd_bh,cydw,riqi,sxkey,sxvalue,lb,status)
          values(#{cyd_bh},#{cydw},#{riqi},#{sxkey},#{sxvalue},#{lb},#{status});
     </insert>
 
-    <update id="delData" parameterType="DataObject">
+    <update id="delData">
         UPDATE fyzw SET
-          status = #{status}
-        WHERE id = #{id}
+          status = 0
+        WHERE cyd_bh = #{arg0} and riqi = #{arg1} and sxkey = #{arg2}
     </update>
 </mapper>

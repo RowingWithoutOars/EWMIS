@@ -3,7 +3,7 @@ package com.usts.model;
 /**@author pizhou
  * 数据模型类, 按照表的结构，所有的操作都应该参考id属性进行
  */
-public class DataObject {
+public class DataObject implements Comparable<DataObject>{
     private int id; //  数据编号
     private String cyd_bh; // 采样点编号
     private String cydw; // 采样点位
@@ -128,5 +128,10 @@ public class DataObject {
                 ", lb=" + lb +
                 ", status=" + status +
                 '}';
+    }
+
+    @Override
+    public int compareTo(DataObject o) {
+        return this.getRiqi().compareTo(o.getRiqi());
     }
 }

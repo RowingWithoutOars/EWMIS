@@ -26,6 +26,11 @@ public class DataService implements IDataService {
     }
 
     @Override
+    public List<DataObject> selectDataByLb(int lb) {
+        return this.dataDao.selectDataByLb(lb);
+    }
+
+    @Override
     public List<DataObject> selectDataByObject(DataObject dataObject) {
         return this.dataDao.selectDataByObject(dataObject);
     }
@@ -46,7 +51,11 @@ public class DataService implements IDataService {
     }
 
     @Override
-    public void delData(int id) {
-        this.delData(id);
+    public void delData(String cyd_bh,String riqi,String sxkey) {
+        this.dataDao.delData(cyd_bh,riqi,sxkey);
     }
+
+//    public void delData(int id) {
+//        this.delData(id);
+//    }
 }

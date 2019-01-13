@@ -35,16 +35,16 @@ public class MapConvertObject {
             users.setFyzw(Integer.parseInt(map.get("fyzw").toString()));
         }
         if (map.get("dq")!=null){
-            users.setDq(Integer.parseInt(map.get("").toString()));
+            users.setDq(Integer.parseInt(map.get("dq").toString()));
         }
         if (map.get("wsw")!=null){
             users.setWsw(Integer.parseInt(map.get("wsw").toString()));
         }
         if (map.get("dn")!=null){
-            users.setDn(Integer.parseInt(map.get("").toString()));
+            users.setDn(Integer.parseInt(map.get("dn").toString()));
         }
         if (map.get("other")!=null){
-            users.setOther(Integer.parseInt(map.get("").toString()));
+            users.setOther(Integer.parseInt(map.get("other").toString()));
         }
         return users;
     }
