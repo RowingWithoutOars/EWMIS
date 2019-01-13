@@ -14,7 +14,7 @@ public class Users {
     private int wsw;
     private int dn;
     private int other;
-    private static ArrayList<Integer> auth = new ArrayList<>();
+    private ArrayList<Integer> auth = new ArrayList<>();
 
     public int getUserid() {
         return userid;
@@ -133,6 +133,7 @@ public class Users {
     }
 
     private void addAuth(){
+        auth = new ArrayList<>();
         if (getFydw()>0){
             auth.addAll(Auth.getAuth().get("fydw"));
         }
@@ -151,10 +152,10 @@ public class Users {
         if (getOther()>0){
             auth.addAll(Auth.getAuth().get("other"));
         }
-        removeDuplicate();
+        removeDuplicate(auth);
     }
 
-    private static void removeDuplicate(){
+    private static void removeDuplicate(ArrayList auth){
         HashSet h = new HashSet(auth);
         auth.clear();
         auth.addAll(h);
