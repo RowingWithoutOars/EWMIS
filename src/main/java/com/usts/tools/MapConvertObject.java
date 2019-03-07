@@ -22,29 +22,32 @@ public class MapConvertObject {
         if (map.get("userid")!=null){
             users.setUserid(Integer.parseInt(map.get("userid").toString()));
         }
-        if (map.get("username")!=null){
+        if (map.get("username")!=null&&map.get("username").toString().length()>0){
             users.setUsername(map.get("username").toString());
         }
-        if (map.get("userpw")!=null){
+        if (map.get("userpw")!=null&&map.get("userpw").toString().length()>0){
             users.setUserpw(map.get("userpw").toString());
         }
-        if (map.get("fydw")!=null){
+        if (map.get("fydw")!=null&&map.get("fydw").toString().length()>0){
             users.setFydw(Integer.parseInt(map.get("fydw").toString()));
         }
-        if (map.get("fyzw")!=null){
+        if (map.get("fyzw")!=null&&map.get("fyzw").toString().length()>0){
             users.setFyzw(Integer.parseInt(map.get("fyzw").toString()));
         }
-        if (map.get("dq")!=null){
+        if (map.get("dq")!=null&&map.get("dq").toString().length()>0){
             users.setDq(Integer.parseInt(map.get("dq").toString()));
         }
-        if (map.get("wsw")!=null){
+        if (map.get("wsw")!=null&&map.get("wsw").toString().length()>0){
             users.setWsw(Integer.parseInt(map.get("wsw").toString()));
         }
-        if (map.get("dn")!=null){
+        if (map.get("dn")!=null&&map.get("dn").toString().length()>0){
             users.setDn(Integer.parseInt(map.get("dn").toString()));
         }
-        if (map.get("other")!=null){
+        if (map.get("other")!=null&&map.get("other").toString().length()>0){
             users.setOther(Integer.parseInt(map.get("other").toString()));
+        }
+        if (map.get("phone")!=null&&map.get("phone").toString().length()>0){
+            users.setPhone(map.get("phone").toString());
         }
         return users;
     }

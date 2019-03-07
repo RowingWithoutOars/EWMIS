@@ -32,14 +32,21 @@ public class UserController {
     public Map login(@RequestBody Map map) {
         String userName = map.get("username").toString();
         String passWord = map.get("password").toString();
-//        System.out.println(userName+";"+passWord);
+        System.out.println(userName+";"+passWord);
         Users user = new Users(userName,passWord);
-        user = this.userService.selectUserByInfo(user);
-//        System.out.println(user);
         Map reMap = new HashMap();
-        if (user!=null){
-            reMap.put("code",200);
-            reMap.put("userid",user.getUserid());
+        try {
+            user = this.userService.selectUserByInfo(user);
+//        System.out.println(user);
+            if (user!=null){
+                reMap.put("code",200);
+                reMap.put("userid",user.getUserid());
+                reMap.put("phone",user.getPhone());
+            }else{
+                reMap.put("code",401);// 用户名密码错误
+            }
+        }catch (Exception e){
+            reMap.put("code",408);// 系统发生错误
         }
         return reMap;
     }
@@ -52,6 +59,27 @@ public class UserController {
         Map<String, Object> returnMap = new HashMap<>();
         List<Users> users = this.userService.listUser();
         returnMap.put("data",users);
+        return  returnMap;
+    }
+
+    // 列出所有用户信息
+    @RequestMapping(value = "/listuser", produces = "application/json; charset=utf-8")
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @ResponseBody
+    public Map listUser(@RequestBody Map map) {
+        Map<String, Object> returnMap = new HashMap<>();
+        try {
+            String userid = map.get("userid").toString();
+            if (Integer.parseInt(userid)==2){
+                List<Users> users = this.userService.listUser();
+                returnMap.put("data", users);
+            }else{
+                returnMap.put("code",403);//权限不足
+            }
+        }
+        catch (Exception e){
+            returnMap.put("code",403);//权限不足
+        }
         return  returnMap;
     }
 

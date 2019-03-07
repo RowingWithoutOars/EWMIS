@@ -3,6 +3,7 @@ package com.usts.dao;
 import com.usts.model.DataObject;
 import com.usts.model.LBObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface DataDao {
@@ -16,7 +17,11 @@ public interface DataDao {
 
     public List<LBObject> selectDatafuzzy(String lbkey);
 
+    public List<String> selectRiQi(String riqi);
+
     public void addData(DataObject dataObject);
+
+    public int addDataBench(ArrayList<DataObject> dataObjects);
 
     public void updataData(DataObject dataObject);
 

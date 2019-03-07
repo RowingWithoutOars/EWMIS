@@ -3,6 +3,7 @@ package com.usts.service;
 import com.usts.model.DataObject;
 import com.usts.model.LBObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface IDataService {
@@ -20,10 +21,15 @@ public interface IDataService {
     public List<DataObject> selectDataByObject(DataObject dataObject);
 
     // 根据字符查类别
+
     public List<LBObject> selectDatafuzzy(String lbkey);
+
+    public List<String> selectRiQi(String riqi);
 
     // 增加一行属性，每次增加一个
     public void addData(DataObject dataObject);
+
+    public int addDataBench(ArrayList<DataObject> dataObjects);
 
     // 更新数据，每次只更新一个，一整条记录通过遍历一个List完成
     public void updataData(DataObject dataObject);

@@ -7,6 +7,7 @@ import com.usts.service.IDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,8 +42,18 @@ public class DataService implements IDataService {
     }
 
     @Override
+    public List<String> selectRiQi(String riqi) {
+        return this.dataDao.selectRiQi("%"+riqi+"%");
+    }
+
+    @Override
     public void addData(DataObject dataObject) {
         this.dataDao.addData(dataObject);
+    }
+
+    @Override
+    public int addDataBench(ArrayList<DataObject> dataObjects) {
+        return this.dataDao.addDataBench(dataObjects);
     }
 
     @Override

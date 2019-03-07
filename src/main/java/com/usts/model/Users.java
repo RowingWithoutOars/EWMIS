@@ -3,18 +3,21 @@ package com.usts.model;
 import com.usts.tools.Auth;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 public class Users {
     private int userid;
     private String username;
-    private String userpw;
-    private int fydw;
-    private int fyzw;
-    private int dq;
-    private int wsw;
-    private int dn;
-    private int other;
+    private String userpw = null;
+    private int fydw = -1;
+    private int fyzw = -1;
+    private int dq = -1;
+    private int wsw = -1;
+    private int dn = -1;
+    private int other = -1;
+    private String phone = null;
     private ArrayList<Integer> auth = new ArrayList<>();
+    private HashMap<String,Integer> roleAuth= new HashMap();
 
     public int getUserid() {
         return userid;
@@ -88,9 +91,22 @@ public class Users {
         this.other = other;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public ArrayList<Integer> getAuth() {
         addAuth();
         return auth;
+    }
+
+    public HashMap<String, Integer> getRoleAuth() {
+        addRoleAuth();
+        return roleAuth;
     }
 
     public Users() {
@@ -153,6 +169,15 @@ public class Users {
             auth.addAll(Auth.getAuth().get("other"));
         }
         removeDuplicate(auth);
+    }
+
+    private void addRoleAuth(){
+        roleAuth.put("fydw",getFydw());
+        roleAuth.put("fyzw",getFyzw());
+        roleAuth.put("dn",getDn());
+        roleAuth.put("dq",getDq());
+        roleAuth.put("wsw",getWsw());
+        roleAuth.put("other",getOther());
     }
 
     private static void removeDuplicate(ArrayList auth){

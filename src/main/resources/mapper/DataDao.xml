@@ -42,6 +42,11 @@
         where lb like #{lb}
     </select>
 
+    <select id="selectRiQi" parameterType="String" resultType="String">
+        SELECT distinct riqi FROM fyzw
+        where riqi like #{riqi}
+    </select>
+
     <select id="selectDatafuzzy" parameterType="String" resultType="LBObject">
         SELECT * FROM lb
         where sxkey like #{sxkey}
@@ -49,15 +54,23 @@
 
     <update id="updataData" parameterType="DataObject">
         UPDATE fyzw SET
-          sxvalue = #{sxvalue},
+          sxvalue = #{sxvalue}
         WHERE cyd_bh = #{cyd_bh} and
-                cydw = #{cydw} and sxkey = #{sxkey}
+                cydw = #{cydw} and sxkey = #{sxkey} and lb = #{lb}
     </update>
 
     <insert id="addData" parameterType="DataObject">
         insert into fyzw(cyd_bh,cydw,riqi,sxkey,sxvalue,lb,status)
          values(#{cyd_bh},#{cydw},#{riqi},#{sxkey},#{sxvalue},#{lb},#{status});
     </insert>
+
+    <insert id ="addDataBench" parameterType="java.util.ArrayList" >
+        insert into fyzw(cyd_bh,cydw,riqi,sxkey,sxvalue,lb,status)
+        values<foreach collection ="list" item="item" index= "index" separator =",">
+              (#{item.cyd_bh},#{item.cydw},#{item.riqi},#{item.sxkey},#{item.sxvalue},#{item.lb},#{item.status})
+              </foreach >
+    </insert >
+
 
     <update id="delData">
         UPDATE fyzw SET

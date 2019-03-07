@@ -35,26 +35,32 @@
     <update id="updataUserPasswd" parameterType="Users">
         update users
         <set>
-        <if test="fydw != null">
+        <if test="fydw != -1">
             fydw = #{fydw},
         </if>
-        <if test="fyzw != null">
+        <if test="fyzw != -1">
             fyzw = #{fyzw},
         </if>
-        <if test="dq != null">
+        <if test="dq != -1">
             dq = #{dq},
         </if>
-        <if test="wsw != null">
+        <if test="wsw != -1">
             wsw = #{wsw},
         </if>
-        <if test="dn != null">
+        <if test="dn != -1">
             dn = #{dn},
         </if>
-        <if test="other != null">
+        <if test="other != -1">
             other = #{other},
         </if>
         <if test="userpw != null">
-          userpw = #{userpw}
+          userpw = #{userpw},
+        </if>
+        <if test="phone != null">
+            phone = #{phone},
+        </if>
+        <if test="username != null">
+            username = #{username}
         </if>
         </set>
         WHERE userid = #{userid}
